@@ -1,0 +1,181 @@
+# essential-style — Base Skin
+# Author: Patrick Stigler
+# Rev. 1 — 2026-09-08 — CC-BY-SA
+#
+# Inspired by Flattery-B (Christian Soffke),
+# ipodVOL (xameius / Stephen Carroll),
+# ChicagoUnified (Brendan Riera),
+# Simple Icons / H120 (John Bayley / Stephen Carroll).
+#
+# 	Load needed fonts
+#
+#	UI font (1) is 14-Nimbus from the theme cfg.
+%Fl(2,10-Nimbus.fnt)
+#
+# 	Preload icons
+%xl(B,batteryStatus.bmp,3,2,6)
+%xl(C,batteryChargingStatus.bmp,3,2,5)
+%xl(P,playerStatus.bmp,0,2,4)
+%xl(H,holdSlider.bmp,0,2)
+%xl(U,timer.bmp,1,2)
+%xl(L,speaker.bmp,2,3,9)
+%xl(cmp1,codec_mp1.bmp,0,0)
+%xl(cmp2,codec_mp2.bmp,0,0)
+%xl(cmp3,codec_mp3.bmp,0,0)
+%xl(caif,codec_aiff.bmp,0,0)
+%xl(cwav,codec_wav.bmp,0,0)
+%xl(cogg,codec_ogg.bmp,0,0)
+%xl(cflc,codec_flac.bmp,0,0)
+%xl(cmpc,codec_mpc.bmp,0,0)
+%xl(ca52,codec_a52.bmp,0,0)
+%xl(cwpk,codec_wpk.bmp,0,0)
+%xl(calc,codec_alac.bmp,0,0)
+%xl(caac,codec_acc.bmp,0,0)
+%xl(cshn,codec_shorten.bmp,0,0)
+%xl(csid,codec_sid.bmp,0,0)
+%xl(cadx,codec_adx.bmp,0,0)
+%xl(cnsf,codec_nsf.bmp,0,0)
+%xl(cspx,codec_speex.bmp,0,0)
+%xl(cspc,codec_spc.bmp,0,0)
+%xl(cape,codec_ape.bmp,0,0)
+%xl(cwma,codec_wma.bmp,0,0)
+%xl(cunk,codec_unknown.bmp,0,0)
+%xl(D,diskActivity.bmp,0,0,8)
+#
+#
+#
+# ---------
+# Logic:
+# ---------
+# 	Set up UI Viewport 
+#
+%VI(main)
+#
+# 	Show speaker icon on QuickScreen while changing volume
+#
+%?and(%if(%cs, =, 10),%if(%mv(2), =, v))<%Vd(volIcon)|%?mp<%Vd(playerStatus)|%Vd(codec)|%Vd(playerStatus)|%Vd(playerStatus)|%Vd(playerStatus)>>
+#
+# 	Broken-circle spinner, bottom left, only while the disk is busy
+%?lh<%Vd(disk)>
+#
+#
+# 	Display battery icon that corresponds to the currently remaining charge,
+# 	or show battery level in %, depending on system setting
+%?if(%St(battery display), =, numeric)<%Vd(battLevel)|%Vd(battIcon)>
+#
+#
+# 	Show Sleep Timer, current time or title
+%?bs<%?or(%if(%mh, =, h),%if(%cs, =, 2))<%Vd(timerTextSurrounding)%Vd(timerText)|%Vd(timerIcon)%Vd(shortTitle)>|%?and(%if(%mh, =, h),%if(%cc, =, c))<%Vd(currTime)|%Vd(longTitle)>>
+#
+#
+# ---------
+# Viewports:
+# ---------
+#
+# 	Battery level
+# 	treat 99% as fully charged already
+#
+%Vl(battLevel,-30,4,3,12,2)%Vf(0)%Vb(3)
+# whitespace character
+ 
+%Vl(battLevel,-27,4,25,12,2)%Vf(0)%Vb(3)
+%?or(%if(%bl, =, 100),%if(%bl, =, 99))<%acCGD|%ac%bl%%>
+#
+#
+#	separator bar on top
+%V(0,18,-,1,-)
+%dr(0,0,-,-,0)
+#
+#
+# 	main content view
+%Vi(main,0,20,160,108,-)
+%Vf(0)
+%Vb(3)
+#
+#
+#
+%Vl(volIcon,4,0,20,15,-)
+%Vf(0)
+%Vb(3)
+%?pv<%xd(La)|%xd(Lb)|%xd(Lc)|%xd(Ld)|%xd(Le)|%xd(Lf)|%xd(Lg)|%xd(Lh)|%xd(Lh)|%xd(Lh)|%xd(Li)>
+#
+#
+# 	Battery Icon
+# 	First entry in %bl is used when the battery level isn’t known,
+# 	then goes from 0 to n for battery level == 100
+#
+%Vl(battIcon,-30,2,28,12,-)
+%?bp<%?bl<%xd(Ca)|%xd(Ca)|%xd(Ca)|%xd(Cb)|%xd(Cb)|%xd(Cb)|%xd(Cb)|%xd(Cc)|%xd(Cc)|%xd(Cc)|%xd(Cc)|%xd(Cc)|%xd(Cc)|%xd(Cd)|%xd(Cd)|%xd(Cd)|%xd(Cd)|%xd(Cd)|%xd(Cd)|%xd(Cd)|%xd(Ce)|%xd(Ce)>|%?bl<%xd(Bb)|%xd(Bb)|%xd(Bb)|%xd(Bc)|%xd(Bc)|%xd(Bc)|%xd(Bc)|%xd(Bd)|%xd(Bd)|%xd(Bd)|%xd(Bd)|%xd(Bd)|%xd(Bd)|%xd(Be)|%xd(Be)|%xd(Be)|%xd(Be)|%xd(Be)|%xd(Be)|%xd(Be)|%xd(Bf)|%xd(Bf)>>
+#
+#
+#
+# 	Player status: stop (empty, as in Flattery-B), pause, ff, rew.
+# 	While playing, the codec viewport is shown instead.
+%Vl(playerStatus,4,2,20,12,-)
+%?mp<|%xd(Pa)|%xd(Pb)|%xd(Pc)|%xd(Pd)>
+#
+#
+# 	Codec (only while playing — see logic above)
+%Vl(codec,7,6,13,5,-)
+%?fc<%xd(cmp1)|%xd(cmp2)|%xd(cmp3)|%xd(caif)|%xd(cwav)|%xd(cogg)|%xd(cflc)|%xd(cmpc)|%xd(ca52)|%xd(cwpk)|%xd(calc)|%xd(caac)|%xd(cshn)|%xd(csid)|%xd(cadx)|%xd(cnsf)|%xd(cspx)|%xd(cspc)|%xd(cape)|%xd(cwma)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)|%xd(cunk)>
+#
+#
+#
+#
+# 	Hold Slider Icon
+%V(24,1,11,13,-)
+%?mh<%xd(H)>
+#
+#
+# 	Sleep Timer Icon
+%Vl(timerIcon,24,2,11,12,-)
+%Vf(0)
+%Vb(3)
+%xd(U)
+# 
+#
+#
+#
+%Vl(longTitle,31,2,-31,14,1)
+%Vf(0)
+%Vb(3)
+# 	Second %cs branch is Now Playing: clock instead of the screen name
+%s%ac%?cs<iPod|%?cf<%cH:%cM|%cl:%cM %cP>|Recording|FM Radio|%Lt|%Lt|%Lt|%Lt|%Lt|%?cc<%?cf<%cH:%cM|%cl:%cM %cP>>%?if(%St(battery display), =, graphic)<%?cc<  >%?if(%bl, =, 100)<CGD|%?if(%bl, =, 99)<CGD|%bl%%>>>|%Lt|%Lt|%Lt|%Lt|%?if(%Lt, =,Context Menu)<Perform Action...|%Lt>|%Lt|%Lt|%Lt|%Lt|%Lt|iPod>
+#
+#	Shorter title bar text
+%Vl(shortTitle,37,2,-37,14,1)
+%Vf(0)
+%Vb(3)
+%s%ac%?cs<iPod|%?cf<%cH:%cM|%cl:%cM %cP>|Recording|FM Radio|%Lt|%Lt|%Lt|%Lt|%Lt|%?cc<%?cf<%cH:%cM|%cl:%cM %cP>>%?if(%St(battery display), =, graphic)<%?cc<  >%?if(%bl, =, 100)<CGD|%?if(%bl, =, 99)<CGD|%bl%%>>>|%Lt|%Lt|%Lt|%Lt|%?if(%Lt, =,Context Menu)<Perform Action...|%Lt>|%Lt|%Lt|%Lt|%Lt|%Lt|iPod>
+#
+#
+#	Current time
+%Vl(currTime,35,2,-35,14,1)
+%Vf(0)
+%Vb(3)
+%ac%?cf<%cH:%cM|%cl:%cM %cP>
+#
+#
+# 	Sleep Timer, erase surrounding area
+%Vl(timerTextSurrounding,35,2,15,14,1)
+%Vf(0)
+%Vb(3)
+#
+#
+# 	Sleep Timer remaining time
+%Vl(timerText,50,2,60,14,1)
+%Vf(3)
+%Vb(0)
+%ac%bs
+#
+# 	Sleep Timer, erase surrounding area
+%Vl(timerTextSurrounding,110,2,-30,14,1)
+%Vf(0)
+%Vb(3)
+#
+#
+# 	Disk activity spinner, flush to the bottom-left of the 160×128 screen.
+%Vl(disk,0,117,11,11,-)%Vf(0)%Vb(3)
+%t(0.1)%xd(Da);%t(0.1)%xd(Db);%t(0.1)%xd(Dc);%t(0.1)%xd(Dd);%t(0.1)%xd(De);%t(0.1)%xd(Df);%t(0.1)%xd(Dg);%t(0.1)%xd(Dh)
+#
+#
