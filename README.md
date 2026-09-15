@@ -11,6 +11,12 @@ Now Playing stays uncluttered: title, artist, album, a full-width progress bar, 
 
 This is a derived work. Flattery-B (Christian Soffke) is licensed CC BY-SA; this theme uses the same license.
 
+## Screenshots
+
+| Unrated | Heart (5–10) | Broken heart (1–4) |
+| --- | --- | --- |
+| ![Now Playing, unrated](screenshots/playing.png) | ![Positive rating](screenshots/positive-rating.png) | ![Negative rating](screenshots/negative-rating.png) |
+
 ## Features
 
 - Status bar at the top: play-state icons (pause / ff / rew; blank when stopped), hold, battery
@@ -47,6 +53,7 @@ To rate a track: on Now Playing open the context menu and set the track rating (
   themes/         essential-style.cfg
   wps/            essential-style.wps, essential-style.sbs, bitmaps
                   (including heart.bmp, heartBroken.bmp, diskActivity.bmp)
+screenshots/      Now Playing captures (unrated, heart, broken heart)
 ```
 
 `CHANGELOG.md` stays in the repo root and is not copied onto the iPod.
