@@ -174,8 +174,8 @@
 %Vb(3)
 #
 #
-# 	Disk activity spinner, flush to the bottom-left of the 160×128 screen.
-%Vl(disk,0,117,11,11,-)%Vf(0)%Vb(3)
+# 	Disk activity spinner, flush to the bottom-left (9×9, y=119).
+%Vl(disk,0,119,9,9,-)%Vf(0)%Vb(3)
 %t(0.1)%xd(Da);%t(0.1)%xd(Db);%t(0.1)%xd(Dc);%t(0.1)%xd(Dd);%t(0.1)%xd(De);%t(0.1)%xd(Df);%t(0.1)%xd(Dg);%t(0.1)%xd(Dh)
 #
 #

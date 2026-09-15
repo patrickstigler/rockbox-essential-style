@@ -17,10 +17,10 @@ This is a derived work. Flattery-B (Christian Soffke) is licensed CC BY-SA; this
 - While playing, the play icon is replaced by a Simple Icons 13×5 codec bitmap
 - Clock in the status bar on Now Playing (instead of the text “Now Playing”); 24h/12h follows the Rockbox setting
 - Centered track info (title, artist, album) in 14-Nimbus — including äöüß
-- Progress bar with 8px inset on both sides; no elapsed-time counter
+- Progress bar with 8px inset on both sides, rounded corners and grey fill; no elapsed-time counter
 - Rating under the progress bar (`%rr` 0–10): unrated = `·`, 1–4 = broken heart, 5–10 = heart (16×16 ListenBrainz / Font Awesome silhouettes)
 - Volume overlay replaces the progress bar while you change volume
-- Disk activity: spinning broken circle, flush to the bottom-left corner
+- Disk activity: 9×9 spinning broken circle in the bottom-left corner, below the menu
 - Uses Rockbox’s 10-Nimbus and 14-Nimbus (not bundled in this repo)
 
 ## Requirements
@@ -62,7 +62,7 @@ This theme remixes work by others. Credit them if you redistribute it.
 | [ChicagoUnified](http://themes.rockbox.org/) | Brendan Riera | Shuffle icon (via Flattery-B) |
 | [Simple Icons (H120)](http://themes.rockbox.org/index.php?target=ipod4g&themeid=598) | John Bayley, submitted by Stephen Carroll | Codec bitmaps in the status bar |
 
-Changes relative to Flattery-B: renamed to essential-style; codec in the status bar while playing; clock instead of “Now Playing”; heart rating; full-width progress bar without elapsed time; disk activity as a bottom-left spinner instead of a dash above the battery; fonts are not bundled (Rockbox’s 10/14-Nimbus); 14-Nimbus is not loaded twice (UI font is reused on the WPS).
+Changes relative to Flattery-B: renamed to essential-style; codec in the status bar while playing; clock instead of “Now Playing”; heart rating; full-width rounded progress bar without elapsed time; disk activity as a 9×9 bottom-left spinner instead of a dash above the battery; fonts are not bundled (Rockbox’s 10/14-Nimbus); 14-Nimbus is not loaded twice (UI font is reused on the WPS).
 
 ## License
 
